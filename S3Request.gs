@@ -355,7 +355,7 @@ S3Request.prototype.canonicalString = function() {
 }
 
 S3Request.prototype.canonicalUri = function(uri) {
-  var m = uri.match(/https?:\/\/(.+)\/(.+)$/);
+  var m = uri.match(/https?:\/\/([^\/]+)\/(.+)$/);
   var object = m ? m[2] : ""
   return "/" + encodeURIComponent(object).replace(/%2F/ig, '/')
 }
