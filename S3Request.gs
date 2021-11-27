@@ -13,7 +13,7 @@ function S3Request(service) {
   this.service = service;
 
   this.httpMethod = "GET";
-  this.contentType = "";
+  this.contentType = 'text/plain;
   this.content = ""; //content of the HTTP request
   this.bucket = ""; //gets turned into host (bucketName.s3.amazonaws.com)
   this.subDomainBucket = false;
@@ -159,8 +159,8 @@ S3Request.prototype.execute = function(options) {
   delete this.headers['Date'];
   delete this.headers['X-Amz-Date'];
   this.headers['X-Amz-Content-Sha256'] = this.hexEncodedBodyHash();
-  this.headers['Host'] = this._getUrl().replace(/https?:\/\/(.+)\/.*/, '$1');
-
+  this.headers['Host'] = this._getUrl().match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i)[1];  
+  
   var credentials = {
     accessKeyId: this.service.accessKeyId,
     secretAccessKey: this.service.secretAccessKey,
