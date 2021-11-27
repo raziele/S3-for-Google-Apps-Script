@@ -226,10 +226,13 @@ S3.prototype.logExchange_ = function (request, response) {
       //truncate to avoid making log unreadable
       request[i] = request[i].slice(0, 1000) + " ... [TRUNCATED]";
     }
+    if(typeof request[i] == 'object' && request[i] != null){
+      request[i] = JSON.stringify(request[i])
+      }
     logContent += Utilities.formatString("\t%s: %s\n", i, request[i]);
   }
 
-  logContent += "-- RESPONSE --\n";
+  logContent += "\n-- RESPONSE --\n";
   logContent += "HTTP Status Code: " + response.getResponseCode() + "\n";
   logContent += "Headers:\n";
 
